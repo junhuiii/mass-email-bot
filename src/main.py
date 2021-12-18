@@ -3,7 +3,14 @@ import smtplib
 import os
 from email.message import EmailMessage
 
-# TODO: Function to import from config.toml, which contains environment variables
+# Final Variables
+CONFIG_PATH = 'config.toml'
+
+
+# Function to import from config.toml, which contains environment variables
+def read_config(path):
+    config = pytoml.load(open(path, 'rb'))
+    return config
 
 # TODO: Function to create SMTP connection to gmail account (Use SSL Class)
 
