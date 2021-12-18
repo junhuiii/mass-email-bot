@@ -1,7 +1,8 @@
 [sender]
 # Use throwaway or spare account for security purposes
 # Alternatively, store these in system's evnironment variables
-email_address = ""
-password = ""
+email_address = " "
+password = " "
+server = "smtp.gmail.com"
 
 # TODO: Nested Table for receivers

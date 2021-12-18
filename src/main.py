@@ -26,7 +26,12 @@ def debug_local_server(subject, body):
         msg = f'Subject: {subject}\n\n{body}'
         smtp.sendmail(test_email, receiver, msg)
 
+
 # TODO: Function to log into gmail account
+def login_email(email, pw, server):
+    with smtplib.SMTP_SSL(server, 465) as smtp:
+        smtp.login(email, pw)
+    print(f'Login to {email} successful.')
 
 # TODO: Function to open documents in attachments directory
 
@@ -34,5 +39,13 @@ def debug_local_server(subject, body):
 
 # TODO: Function to get list of email receivers to send to from config.toml
 
+
 if __name__ == '__main__':
-    print("Hello World!")
+    # Read config.toml
+    test_config = read_config('config.toml')
+
+    # Obtain login details from config.toml
+    email_address = test_config['sender']['email_address']
+    email_password = test_config['sender']['password']
+    email_server = test_config['sender']['server']
+    login_email(email_address,email_password,email_server)
