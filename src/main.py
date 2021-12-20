@@ -33,9 +33,8 @@ def login_email(email, pw, server):
 
 
 # Function to change directories
-def change_directory(extension):
-    cwd = os.getcwd()
-    os.chdir(cwd + extension)
+def change_directory(current, extension):
+    os.chdir(current + extension)
 
 
 # Function to list files in a directory
@@ -64,6 +63,9 @@ if __name__ == '__main__':
     # Read config.toml
     test_config = read_config('config.toml')
 
+    # Store cwd for future use
+    base_cwd = os.getcwd()
+
     # Obtain login details from config.toml
     email_address = test_config['sender']['email_address']
     email_password = test_config['sender']['password']
@@ -73,13 +75,17 @@ if __name__ == '__main__':
     # Draft message
     msg = EmailMessage()
     msg["Subject"] = " "
-    msg["From"] = " "
+    msg["From"] = email_address
     msg["To"] = " "
+
+    # Navigate to email_script directory
+    email_script_directory = test_config["directories"]["email_script"]
+    change_directory(base_cwd, email_script_directory)
     msg.set_content(" ")
 
     # Navigate to attachment directory
     attachment_directory = test_config["directories"]["attachments"]
-    change_directory(attachment_directory)
+    change_directory(base_cwd, attachment_directory)
 
     # List attachments in attachment directory
     attachments = list_files(os.getcwd())
@@ -89,10 +95,4 @@ if __name__ == '__main__':
 
     # Uncomment when reading to send
     # msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
-
-
-
-
-
-
-
+    print_email(msg)
