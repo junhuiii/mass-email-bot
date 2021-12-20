@@ -12,8 +12,6 @@ def read_config(path):
     config = pytoml.load(open(path, 'rb'))
     return config
 
-# TODO: Function to create SMTP connection to gmail account (Use SSL Class)
-
 
 # Function to create connection to localhost for testing purposes
 # For windows: open cmd and input <py -m smtpd -c DebuggingServer -n localhost:1025>
@@ -45,7 +43,14 @@ def list_files(path):
     files = os.listdir(path)
     return files
 
-# TODO: Function to add attachment to email before sending
+
+# TODO: Function to read attachments before attaching to email message
+def read_files(lst):
+    for file in lst:
+        with open(file, 'rb') as f:
+            file_data = f.read()
+            file_name = f.name
+    return file_data, file_name
 
 # TODO: Function to get list of email receivers to send to from config.toml
 
@@ -60,12 +65,27 @@ if __name__ == '__main__':
     email_server = test_config['sender']['server']
     # login_email(email_address,email_password,email_server) # Uncomment when details have been added to config.toml
 
+    # Draft message
+    msg = EmailMessage()
+    msg["Subject"] = " "
+    msg["From"] = " "
+    msg["To"] = " "
+    msg.set_content(" ")
+
     # Navigate to attachment directory
     attachment_directory = test_config["directories"]["attachments"]
     change_directory(attachment_directory)
 
     # List attachments in attachment directory
     attachments = list_files(os.getcwd())
+
+    # Attach attachments to msg
+    f_data, f_name = read_files(attachments)
+
+    # Uncomment when reading to send
+    # msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
+
+
 
 
 
