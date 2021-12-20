@@ -61,15 +61,15 @@ def print_email(msg_obj):
 
 if __name__ == '__main__':
     # Read config.toml
-    test_config = read_config('config.toml')
+    config_file = read_config('config.toml')
 
     # Store cwd for future use
     base_cwd = os.getcwd()
 
     # Obtain login details from config.toml
-    email_address = test_config['sender']['email_address']
-    email_password = test_config['sender']['password']
-    email_server = test_config['sender']['server']
+    email_address = config_file['sender']['email_address']
+    email_password = config_file['sender']['password']
+    email_server = config_file['sender']['server']
     # login_email(email_address,email_password,email_server) # Uncomment when details have been added to config.toml
 
     # Draft message
@@ -79,12 +79,12 @@ if __name__ == '__main__':
     msg["To"] = " "
 
     # Navigate to email_script directory
-    email_script_directory = test_config["directories"]["email_script"]
+    email_script_directory = config_file["directories"]["email_script"]
     change_directory(base_cwd, email_script_directory)
     msg.set_content(" ")
 
     # Navigate to attachment directory
-    attachment_directory = test_config["directories"]["attachments"]
+    attachment_directory = config_file["directories"]["attachments"]
     change_directory(base_cwd, attachment_directory)
 
     # List attachments in attachment directory
