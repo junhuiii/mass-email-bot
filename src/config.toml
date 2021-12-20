@@ -5,4 +5,8 @@ email_address = " "
 password = " "
 server = "smtp.gmail.com"
 
+[directories]
+attachments = "\\attachments"
+email_script = "\\email_script"
+
 # TODO: Nested Table for receivers

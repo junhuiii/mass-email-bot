@@ -33,7 +33,11 @@ def login_email(email, pw, server):
         smtp.login(email, pw)
     print(f'Login to {email} successful.')
 
+
 # TODO: Function to open documents in attachments directory
+def change_directory(extension):
+    cwd = os.getcwd()
+    os.chdir(cwd + extension)
 
 # TODO: Function to add attachment to email before sending
 
@@ -45,7 +49,16 @@ if __name__ == '__main__':
     test_config = read_config('config.toml')
 
     # Obtain login details from config.toml
-    email_address = test_config['sender']['email_address']
-    email_password = test_config['sender']['password']
-    email_server = test_config['sender']['server']
-    login_email(email_address,email_password,email_server)
+    # email_address = test_config['sender']['email_address']
+    # email_password = test_config['sender']['password']
+    # email_server = test_config['sender']['server']
+    # login_email(email_address,email_password,email_server)
+
+    # Navigate to attachment directory
+    attachment_directory = test_config["directories"]["attachments"]
+    change_directory(attachment_directory)
+
+
+
+
+
