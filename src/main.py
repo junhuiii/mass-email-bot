@@ -39,8 +39,11 @@ def change_directory(extension):
     cwd = os.getcwd()
     os.chdir(cwd + extension)
 
-# TODO: Function to open documents in attachments directory
 
+# Function to list files in a directory
+def list_files(path):
+    files = os.listdir(path)
+    return files
 
 # TODO: Function to add attachment to email before sending
 
@@ -60,6 +63,11 @@ if __name__ == '__main__':
     # Navigate to attachment directory
     attachment_directory = test_config["directories"]["attachments"]
     change_directory(attachment_directory)
+
+    # List attachments in attachment directory
+    attachments = list_files(os.getcwd())
+    print(attachments)
+
 
 
 
