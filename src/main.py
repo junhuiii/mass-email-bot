@@ -34,10 +34,13 @@ def login_email(email, pw, server):
     print(f'Login to {email} successful.')
 
 
-# TODO: Function to open documents in attachments directory
+# Function to change directories
 def change_directory(extension):
     cwd = os.getcwd()
     os.chdir(cwd + extension)
+
+# TODO: Function to open documents in attachments directory
+
 
 # TODO: Function to add attachment to email before sending
 
