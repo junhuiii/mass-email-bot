@@ -43,7 +43,7 @@ def list_files(path):
     return files
 
 
-# TODO: Function to read attachments before attaching to email message
+# Function to read attachments before attaching to email message
 def read_files(lst):
     for file in lst:
         with open(file, 'rb') as f:
@@ -81,6 +81,7 @@ if __name__ == '__main__':
     # Navigate to email_script directory
     email_script_directory = config_file["directories"]["email_script"]
     change_directory(base_cwd, email_script_directory)
+    # TODO: Read content of email_script directory to obtain message content
     msg.set_content(" ")
 
     # Navigate to attachment directory
