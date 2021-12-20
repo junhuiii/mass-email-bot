@@ -55,6 +55,11 @@ def read_files(lst):
 # TODO: Function to get list of email receivers to send to from config.toml
 
 
+# Function to print email message in Intellij for checking purposes
+def print_email(msg_obj):
+    print(str(msg_obj))
+
+
 if __name__ == '__main__':
     # Read config.toml
     test_config = read_config('config.toml')
@@ -84,7 +89,6 @@ if __name__ == '__main__':
 
     # Uncomment when reading to send
     # msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
-
 
 
 
