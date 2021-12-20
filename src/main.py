@@ -15,7 +15,7 @@ def read_config(path):
 # TODO: Function to create SMTP connection to gmail account (Use SSL Class)
 
 
-# TODO: Function to create connection to localhost for testing purposes
+# Function to create connection to localhost for testing purposes
 # For windows: open cmd and input <py -m smtpd -c DebuggingServer -n localhost:1025>
 # For MacOS: open terminal and input <python3 -m smtpd -c DebuggingServer -n localhost:1025>
 # For testing purpose, EMAIL_ADDRESS AND receiver can be blank strings
@@ -27,7 +27,7 @@ def debug_local_server(subject, body):
         smtp.sendmail(test_email, receiver, msg)
 
 
-# TODO: Function to log into gmail account
+# Function to log into gmail account
 def login_email(email, pw, server):
     with smtplib.SMTP_SSL(server, 465) as smtp:
         smtp.login(email, pw)
@@ -55,10 +55,10 @@ if __name__ == '__main__':
     test_config = read_config('config.toml')
 
     # Obtain login details from config.toml
-    # email_address = test_config['sender']['email_address']
-    # email_password = test_config['sender']['password']
-    # email_server = test_config['sender']['server']
-    # login_email(email_address,email_password,email_server)
+    email_address = test_config['sender']['email_address']
+    email_password = test_config['sender']['password']
+    email_server = test_config['sender']['server']
+    # login_email(email_address,email_password,email_server) # Uncomment when details have been added to config.toml
 
     # Navigate to attachment directory
     attachment_directory = test_config["directories"]["attachments"]
@@ -66,7 +66,6 @@ if __name__ == '__main__':
 
     # List attachments in attachment directory
     attachments = list_files(os.getcwd())
-    print(attachments)
 
 
 
