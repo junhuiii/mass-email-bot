@@ -25,13 +25,6 @@ def debug_local_server(subject, body):
         smtp.sendmail(test_email, receiver, msg)
 
 
-# Function to log into gmail account
-def login_email(email, pw, server):
-    with smtplib.SMTP_SSL(server, 465) as smtp:
-        smtp.login(email, pw)
-    print(f'Login to {email} successful.')
-
-
 # Function to change directories
 def change_directory(current, extension):
     os.chdir(current + extension)
@@ -70,19 +63,22 @@ if __name__ == '__main__':
     email_address = config_file['sender']['email_address']
     email_password = config_file['sender']['password']
     email_server = config_file['sender']['server']
-    # login_email(email_address,email_password,email_server) # Uncomment when details have been added to config.toml
 
     # Draft message
     msg = EmailMessage()
-    msg["Subject"] = " "
+    msg["Subject"] = "test 1"
     msg["From"] = email_address
-    msg["To"] = " "
+    msg["To"] = email_address
 
     # Navigate to email_script directory
     email_script_directory = config_file["directories"]["email_script"]
     change_directory(base_cwd, email_script_directory)
-    # TODO: Read content of email_script directory to obtain message content
-    msg.set_content(" ")
+    email_template = list_files(os.getcwd())
+    if len(email_template) == 1 and email_template[0] == "template.txt":
+        with open(email_template[0], mode='r') as f:
+            test_str = f.read()
+    # TODO: Set content as html format for smtp to convert
+    msg.set_content(test_str)
 
     # Navigate to attachment directory
     attachment_directory = config_file["directories"]["attachments"]
@@ -96,4 +92,10 @@ if __name__ == '__main__':
 
     # Uncomment when reading to send
     # msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
-    print_email(msg)
+
+
+    # Send email
+    # with smtplib.SMTP_SSL(email_server, 465) as smtp:
+    #     smtp.login(email_address, email_password) # Uncomment when details have been added to config.toml
+    #     smtp.send_message(msg) # Uncomment when ready to send email
+    #     print(f'Email sent to {email_address} successful.')
