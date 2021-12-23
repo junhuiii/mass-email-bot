@@ -1,7 +1,7 @@
 [sender]
 # Use throwaway or spare account for security purposes
 # Alternatively, store these in system's evnironment variables
-email_address = "fcbjh0204@gmail.com"
+email_address = ""
 password = "gcrgvirmtfcnnyan"
 server = "smtp.gmail.com"
 
