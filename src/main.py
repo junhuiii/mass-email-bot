@@ -3,6 +3,7 @@ import smtplib
 import os
 from email.message import EmailMessage
 import webbrowser
+import sys
 
 # Final Variables
 CONFIG_PATH = 'config.toml'
@@ -88,6 +89,11 @@ if __name__ == '__main__':
     msg.set_content(test_str, subtype='html')
     save_to_html(test_str)
     webbrowser.get('windows-default').open_new("template.html")
+    check_preview = input("Please check preview of email and choose whether to proceed (YES/NO): ")
+    if check_preview != "YES":
+        print("Stopping program...")
+        sys.exit()
+
     # Navigate to attachment directory
     attachment_directory = config_file["directories"]["attachments"]
     change_directory(base_cwd, attachment_directory)
