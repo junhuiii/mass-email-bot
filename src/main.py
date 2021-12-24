@@ -56,11 +56,6 @@ def save_to_html(html_str):
     file.close()
 
 
-# Function to print email message in Intellij for checking purposes
-def print_email(msg_obj):
-    print(str(msg_obj))
-
-
 if __name__ == '__main__':
     # Read config.toml
     config_file = read_config('config.toml')
