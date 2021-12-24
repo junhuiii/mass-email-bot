@@ -2,7 +2,7 @@ import pytoml
 import smtplib
 import os
 from email.message import EmailMessage
-from email.mime.text import MIMEText
+from bs4 import BeautifulSoup
 
 # Final Variables
 CONFIG_PATH = 'config.toml'
@@ -46,6 +46,13 @@ def read_files(lst):
     return file_data, file_name
 
 # TODO: Function to get list of email receivers to send to from config.toml
+
+
+# TODO: Work on function to print email body in python console for user to check through before sending
+def html_to_text(msgObj):
+    html_string = str(msgObj.get_body())
+    cleantext = BeautifulSoup(html_string, 'lxml').text
+    return cleantext
 
 
 # Function to print email message in Intellij for checking purposes
@@ -92,7 +99,7 @@ if __name__ == '__main__':
 
     # Uncomment when reading to send
     msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
-
+    print(html_to_text(msg))
     # Uncomment when ready to send email
     # with smtplib.SMTP_SSL(email_server, 465) as smtp:
     #     smtp.login(email_address, email_password)
