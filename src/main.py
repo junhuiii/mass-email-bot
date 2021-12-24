@@ -2,6 +2,7 @@ import pytoml
 import smtplib
 import os
 from email.message import EmailMessage
+from email.mime.text import MIMEText
 
 # Final Variables
 CONFIG_PATH = 'config.toml'
@@ -75,10 +76,9 @@ if __name__ == '__main__':
     change_directory(base_cwd, email_script_directory)
     email_template = list_files(os.getcwd())
     if len(email_template) == 1 and email_template[0] == "template.txt":
-        with open(email_template[0], mode='r') as f:
+        with open(email_template[0], mode='r', encoding='utf-8-sig') as f:
             test_str = f.read()
-    # TODO: Set content as html format for smtp to convert
-    msg.set_content(test_str)
+    msg.set_content(test_str, subtype='html')
 
     # Navigate to attachment directory
     attachment_directory = config_file["directories"]["attachments"]
@@ -91,11 +91,10 @@ if __name__ == '__main__':
     f_data, f_name = read_files(attachments)
 
     # Uncomment when reading to send
-    # msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
+    msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
 
-
-    # Send email
+    # Uncomment when ready to send email
     # with smtplib.SMTP_SSL(email_server, 465) as smtp:
-    #     smtp.login(email_address, email_password) # Uncomment when details have been added to config.toml
-    #     smtp.send_message(msg) # Uncomment when ready to send email
+    #     smtp.login(email_address, email_password)
+    #     smtp.send_message(msg)
     #     print(f'Email sent to {email_address} successful.')
