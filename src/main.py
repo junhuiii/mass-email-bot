@@ -82,13 +82,16 @@ if __name__ == '__main__':
     # Navigate to email_script directory
     email_script_directory = config_file["directories"]["email_script"]
     change_directory(base_cwd, email_script_directory)
-    email_template = list_files(os.getcwd())
-    if len(email_template) == 2 and "template.txt" in email_template:
+    email_template = list_files(os.getcwd())  # List files in email_script directory
+
+    if len(email_template) == 2 and "template.txt" in email_template:  # Check for existence of "template.txt"
         with open(email_template[email_template.index("template.txt")], mode='r', encoding='utf-8-sig') as f:
-            test_str = f.read()
-    msg.set_content(test_str, subtype='html')
-    save_to_html(test_str)
-    webbrowser.get('windows-default').open_new("template.html")
+            html_string = f.read() # read template.txt as string
+
+    msg.set_content(html_string, subtype='html')  # convert to html and attach to msg object
+    save_to_html(html_string)  # update to "template.html"
+    webbrowser.get('windows-default').open_new("template.html")  # open in default browser
+    # Request for user to check email
     check_preview = input("Please check preview of email and choose whether to proceed (YES/NO): ")
     if check_preview != "YES":
         print("Stopping program...")
