@@ -2,7 +2,7 @@ import pytoml
 import smtplib
 import os
 from email.message import EmailMessage
-from bs4 import BeautifulSoup
+import webbrowser
 
 # Final Variables
 CONFIG_PATH = 'config.toml'
@@ -49,10 +49,10 @@ def read_files(lst):
 
 
 # TODO: Work on function to print email body in python console for user to check through before sending
-def html_to_text(msgObj):
-    html_string = str(msgObj.get_body())
-    cleantext = BeautifulSoup(html_string, 'lxml').text
-    return cleantext
+def save_to_html(html_string):
+    file = open("template.html", "w")
+    file.write(html_string)
+    file.close()
 
 
 # Function to print email message in Intellij for checking purposes
@@ -82,11 +82,12 @@ if __name__ == '__main__':
     email_script_directory = config_file["directories"]["email_script"]
     change_directory(base_cwd, email_script_directory)
     email_template = list_files(os.getcwd())
-    if len(email_template) == 1 and email_template[0] == "template.txt":
-        with open(email_template[0], mode='r', encoding='utf-8-sig') as f:
+    if len(email_template) == 2 and "template.txt" in email_template:
+        with open(email_template[email_template.index("template.txt")], mode='r', encoding='utf-8-sig') as f:
             test_str = f.read()
     msg.set_content(test_str, subtype='html')
-
+    save_to_html(test_str)
+    webbrowser.get('windows-default').open_new("template.html")
     # Navigate to attachment directory
     attachment_directory = config_file["directories"]["attachments"]
     change_directory(base_cwd, attachment_directory)
@@ -99,7 +100,6 @@ if __name__ == '__main__':
 
     # Uncomment when reading to send
     msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
-    print(html_to_text(msg))
     # Uncomment when ready to send email
     # with smtplib.SMTP_SSL(email_server, 465) as smtp:
     #     smtp.login(email_address, email_password)
