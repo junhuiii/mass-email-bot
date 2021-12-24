@@ -23,8 +23,8 @@ def debug_local_server(subject, body):
     test_email = ""
     receiver = ""
     with smtplib.SMTP('localhost', 1025) as smtp:
-        msg = f'Subject: {subject}\n\n{body}'
-        smtp.sendmail(test_email, receiver, msg)
+        message = f'Subject: {subject}\n\n{body}'
+        smtp.sendmail(test_email, receiver, message)
 
 
 # Function to change directories
@@ -50,9 +50,9 @@ def read_files(lst):
 
 
 # TODO: Work on function to print email body in python console for user to check through before sending
-def save_to_html(html_string):
+def save_to_html(html_str):
     file = open("template.html", "w")
-    file.write(html_string)
+    file.write(html_str)
     file.close()
 
 
@@ -84,9 +84,12 @@ if __name__ == '__main__':
     change_directory(base_cwd, email_script_directory)
     email_template = list_files(os.getcwd())  # List files in email_script directory
 
+    # TODO: Add try-catch to handle case where "template.txt" doesn't exist
     if len(email_template) == 2 and "template.txt" in email_template:  # Check for existence of "template.txt"
-        with open(email_template[email_template.index("template.txt")], mode='r', encoding='utf-8-sig') as f:
-            html_string = f.read() # read template.txt as string
+        with open(email_template[email_template.index("template.txt")], mode='r', encoding='utf-8-sig') as fle:
+            html_string = fle.read()  # read template.txt as string
+
+    # TODO: Replace variables with required string
 
     msg.set_content(html_string, subtype='html')  # convert to html and attach to msg object
     save_to_html(html_string)  # update to "template.html"

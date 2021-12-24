@@ -9,4 +9,4 @@ server = "smtp.gmail.com"
 attachments = "\\attachments"
 email_script = "\\email_script"
 
-# TODO: Nested Table for receivers
+
