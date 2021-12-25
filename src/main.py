@@ -47,7 +47,7 @@ def read_files(lst):
             file_name = f.name
     return file_data, file_name
 
-# TODO: Function to get list of email receivers to send to from config.toml
+# TODO: Function to get email_receivers and relevant content from email_list directory
 
 
 # TODO: Work on function to print email body in python console for user to check through before sending
@@ -84,6 +84,7 @@ if __name__ == '__main__':
     replacements = {'organisation_name': 'csgodyune'}
 
     # Set short_name and full_name variable from config.toml file
+    # TODO: Add try-catch to handle case where variables are wrong (hort_name and full_name changed in config.toml)
     for var, name in config_file['email_content'].items():
         replacements[var] = name
 
