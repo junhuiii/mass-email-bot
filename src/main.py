@@ -79,12 +79,12 @@ if __name__ == '__main__':
     change_directory(base_cwd, email_script_directory)
     email_template = list_files(os.getcwd())  # List files in email_script directory
 
+    # Dictionary to test replacement of variables
+    replacements = {'short_name': 'Jun Hui', 'organisation_name': 'csgodyune', 'full_name': 'Au Jun Hui'}
     # TODO: Add try-catch to handle case where "template.txt" doesn't exist
     if len(email_template) == 2 and "template.txt" in email_template:  # Check for existence of "template.txt"
         with open(email_template[email_template.index("template.txt")], mode='r', encoding='utf-8-sig') as fle:
-            html_string = fle.read()  # read template.txt as string
-
-    # TODO: Replace variables with required string
+            html_string = fle.read().format(**replacements)  # read template.txt as string
 
     msg.set_content(html_string, subtype='html')  # convert to html and attach to msg object
     save_to_html(html_string)  # update to "template.html"
