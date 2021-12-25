@@ -2,6 +2,7 @@ import os
 import smtplib
 import sys
 import webbrowser
+from openpyxl import load_workbook
 from email.message import EmailMessage
 
 import pytoml
@@ -68,6 +69,15 @@ if __name__ == '__main__':
     email_address = config_file['sender']['email_address']
     email_password = config_file['sender']['password']
     email_server = config_file['sender']['server']
+
+    # Navigate to email_list directory
+    email_list_directory = config_file["directories"]["email_list"]
+    change_directory(base_cwd, email_list_directory)
+    email_list_files = list_files(os.getcwd())
+
+    # Read "email_list.xlsx" file
+    # TODO: Add try-catch for absence of "email_list.xlsx
+    email_list_xlsx = load_workbook(filename="email_list.xlsx")
 
     # Draft message
     msg = EmailMessage()

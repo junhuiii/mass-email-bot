@@ -8,6 +8,7 @@ server = "smtp.gmail.com"
 [directories]
 attachments = "\\attachments"
 email_script = "\\email_script"
+email_list = "\\email_list"
 
 [email_content]
 short_name = "Jun Hui"
