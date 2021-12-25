@@ -1,9 +1,10 @@
-import pytoml
-import smtplib
 import os
-from email.message import EmailMessage
-import webbrowser
+import smtplib
 import sys
+import webbrowser
+from email.message import EmailMessage
+
+import pytoml
 
 # Final Variables
 CONFIG_PATH = 'config.toml'
