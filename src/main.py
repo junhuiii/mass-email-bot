@@ -80,7 +80,12 @@ if __name__ == '__main__':
     email_template = list_files(os.getcwd())  # List files in email_script directory
 
     # Dictionary to test replacement of variables
-    replacements = {'short_name': 'Jun Hui', 'organisation_name': 'csgodyune', 'full_name': 'Au Jun Hui'}
+    replacements = {'organisation_name': 'csgodyune'}
+
+    # Set short_name and full_name variable from config.toml file
+    for var, name in config_file['email_content'].items():
+        replacements[var] = name
+
     # TODO: Add try-catch to handle case where "template.txt" doesn't exist
     if len(email_template) == 2 and "template.txt" in email_template:  # Check for existence of "template.txt"
         with open(email_template[email_template.index("template.txt")], mode='r', encoding='utf-8-sig') as fle:
