@@ -22,3 +22,6 @@
   ![Email Confirmation Function](screenshots/email_confirmation.png?raw=true)
 * Script will also output string message that email has been sent successfully upon completion.
   ![Email Sent Function](screenshots/email_sent.jpg?raw=true)
+
+## Setup
+* 
