@@ -24,4 +24,11 @@
   ![Email Sent Function](screenshots/email_sent.jpg?raw=true)
 
 ## Setup
-* 
+1. Clone this repository
+2. Inside the src directory, create 3 other directories, naming them
+   * attachments
+   * email_list
+   * email_script
+3. In the 'attachments' directory, place all pdf documents that you wish to attach in the email
+4. In the 'email_list' directory, create a .xlsx file named email_list.xlsx
+5. In the 'email_script' directory, create a .txt file named template.txt and place the html version of the email content inside.
