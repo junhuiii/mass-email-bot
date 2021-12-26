@@ -115,7 +115,7 @@ if __name__ == '__main__':
         save_to_html(html_string)  # update to "template.html"
         webbrowser.get('windows-default').open_new("template.html")  # open in default browser
         # Request for user to check email
-        check_preview = input("Please check preview of email and choose whether to proceed (YES/NO): ")
+        check_preview = input(f"Please check preview of email to {msg['To']} and choose whether to proceed (YES/NO): ")
         if check_preview != "YES":
             print("Stopping program...")
             sys.exit()
