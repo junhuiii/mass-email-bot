@@ -2,10 +2,10 @@ import os
 import smtplib
 import sys
 import webbrowser
-from openpyxl import load_workbook
 from email.message import EmailMessage
 
 import pytoml
+from openpyxl import load_workbook
 
 # Final Variables
 CONFIG_PATH = 'config.toml'
@@ -123,6 +123,7 @@ if __name__ == '__main__':
             sys.exit()
 
         # Navigate to attachment directory
+        # TODO: Find a way to put this outside of for loop to reduce time complexity
         attachment_directory = config_file["directories"]["attachments"]
         change_directory(base_cwd, attachment_directory)
 
