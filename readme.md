@@ -17,4 +17,4 @@
 
 ## Screenshots
 * Email preview function that requires user confirmation before proceeding
-  ![Email Preview Function](screenshots\email_preview.jpg?raw=true "Email Preview")
+  ![Email Preview Function](screenshots/email_preview.jpg?raw=true)
