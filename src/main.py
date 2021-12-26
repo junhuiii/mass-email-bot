@@ -48,7 +48,14 @@ def read_files(lst):
             file_name = f.name
     return file_data, file_name
 
-# TODO: Function to get email_receivers and relevant content from email_list directory
+
+# Function to get email_receivers and relevant content from email_list directory
+def get_receivers_info(xlsx_wb):
+    email_list_worksheet = xlsx_wb['Sheet1']
+    data = []
+    for rows in email_list_worksheet.iter_rows(min_row=2):
+        data.append((rows[0].value, rows[1].value))
+    return data
 
 
 # TODO: Work on function to print email body in python console for user to check through before sending
@@ -78,54 +85,55 @@ if __name__ == '__main__':
     # Read "email_list.xlsx" file
     # TODO: Add try-catch for absence of "email_list.xlsx
     email_list_xlsx = load_workbook(filename="email_list.xlsx")
+    email_receiver_list = get_receivers_info(email_list_xlsx)
 
-    # Draft message
-    msg = EmailMessage()
-    msg["Subject"] = "test 1"
-    msg["From"] = email_address
-    msg["To"] = email_address
+    # Start of for loop to loop through email_receiver_list
+    for receiver in email_receiver_list:
+        replacements = {'organisation_name': receiver[0]}
+        # Draft message
+        msg = EmailMessage()
+        msg["Subject"] = "Stop lying pls"
+        msg["From"] = email_address
+        msg["To"] = receiver[1]
 
-    # Navigate to email_script directory
-    email_script_directory = config_file["directories"]["email_script"]
-    change_directory(base_cwd, email_script_directory)
-    email_template = list_files(os.getcwd())  # List files in email_script directory
+        # Set short_name and full_name variable from config.toml file
+        # TODO: Add try-catch to handle case where variables are wrong (hort_name and full_name changed in config.toml)
+        for var, name in config_file['email_content'].items():
+            replacements[var] = name
 
-    # Dictionary to test replacement of variables
-    replacements = {'organisation_name': 'csgodyune'}
+        # Navigate to email_script directory
+        email_script_directory = config_file["directories"]["email_script"]
+        change_directory(base_cwd, email_script_directory)
+        email_template = list_files(os.getcwd())  # List files in email_script directory
 
-    # Set short_name and full_name variable from config.toml file
-    # TODO: Add try-catch to handle case where variables are wrong (hort_name and full_name changed in config.toml)
-    for var, name in config_file['email_content'].items():
-        replacements[var] = name
+        # TODO: Add try-catch to handle case where "template.txt" doesn't exist
+        if len(email_template) == 2 and "template.txt" in email_template:  # Check for existence of "template.txt"
+            with open(email_template[email_template.index("template.txt")], mode='r', encoding='utf-8-sig') as fle:
+                html_string = fle.read().format(**replacements)  # read template.txt as string
 
-    # TODO: Add try-catch to handle case where "template.txt" doesn't exist
-    if len(email_template) == 2 and "template.txt" in email_template:  # Check for existence of "template.txt"
-        with open(email_template[email_template.index("template.txt")], mode='r', encoding='utf-8-sig') as fle:
-            html_string = fle.read().format(**replacements)  # read template.txt as string
+        msg.set_content(html_string, subtype='html')  # convert to html and attach to msg object
+        save_to_html(html_string)  # update to "template.html"
+        webbrowser.get('windows-default').open_new("template.html")  # open in default browser
+        # Request for user to check email
+        check_preview = input("Please check preview of email and choose whether to proceed (YES/NO): ")
+        if check_preview != "YES":
+            print("Stopping program...")
+            sys.exit()
 
-    msg.set_content(html_string, subtype='html')  # convert to html and attach to msg object
-    save_to_html(html_string)  # update to "template.html"
-    webbrowser.get('windows-default').open_new("template.html")  # open in default browser
-    # Request for user to check email
-    check_preview = input("Please check preview of email and choose whether to proceed (YES/NO): ")
-    if check_preview != "YES":
-        print("Stopping program...")
-        sys.exit()
+        # Navigate to attachment directory
+        attachment_directory = config_file["directories"]["attachments"]
+        change_directory(base_cwd, attachment_directory)
 
-    # Navigate to attachment directory
-    attachment_directory = config_file["directories"]["attachments"]
-    change_directory(base_cwd, attachment_directory)
+        # List attachments in attachment directory
+        attachments = list_files(os.getcwd())
 
-    # List attachments in attachment directory
-    attachments = list_files(os.getcwd())
+        # Attach attachments to msg
+        f_data, f_name = read_files(attachments)
 
-    # Attach attachments to msg
-    f_data, f_name = read_files(attachments)
-
-    # Uncomment when reading to send
-    msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
-    # Uncomment when ready to send email
-    # with smtplib.SMTP_SSL(email_server, 465) as smtp:
-    #     smtp.login(email_address, email_password)
-    #     smtp.send_message(msg)
-    #     print(f'Email sent to {email_address} successful.')
+        # Uncomment when reading to send
+        msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
+        # Uncomment when ready to send email
+        with smtplib.SMTP_SSL(email_server, 465) as smtp:
+            smtp.login(email_address, email_password)
+            smtp.send_message(msg)
+            print(f'Email successfully sent to {msg["To"]}.')
