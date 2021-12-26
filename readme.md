@@ -16,3 +16,5 @@
 * Script will read the respective files, craft a message meant for that particular organisation and email, together with any attachment.
 
 ## Screenshots
+* Email preview function that requires user confirmation before proceeding
+  ![TEST](C:\Users\Jun Hui's PC (2021)\IdeaProjects\NUSSDS_Mass_Email\screenshots\email_preview.jpg?raw=true "Optional Title")
