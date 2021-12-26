@@ -17,4 +17,4 @@
 
 ## Screenshots
 * Email preview function that requires user confirmation before proceeding
-  ![TEST](C:\Users\Jun Hui's PC (2021)\IdeaProjects\NUSSDS_Mass_Email\screenshots\email_preview.jpg?raw=true "Optional Title")
+  ![Email Preview Function](screenshots\email_preview.jpg?raw=true "Email Preview")
