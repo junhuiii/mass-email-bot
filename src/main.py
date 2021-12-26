@@ -42,11 +42,13 @@ def list_files(path):
 
 # Function to read attachments before attaching to email message
 def read_files(lst):
+    result = []
     for file in lst:
         with open(file, 'rb') as f:
             file_data = f.read()
             file_name = f.name
-    return file_data, file_name
+            result.append((file_data, file_name))
+    return result
 
 
 # Function to get email_receivers and relevant content from email_list directory
@@ -126,12 +128,12 @@ if __name__ == '__main__':
 
         # List attachments in attachment directory
         attachments = list_files(os.getcwd())
-
         # Attach attachments to msg
-        f_data, f_name = read_files(attachments)
-
+        f_data_name = read_files(attachments)
         # Uncomment when reading to send
-        msg.add_attachment(f_data, maintype='application', subtype='octet-stream', filename=f_name)
+        for attachment in f_data_name:
+            msg.add_attachment(attachment[0], maintype='application', subtype='octet-stream', filename=attachment[1])
+
         # Uncomment when ready to send email
         with smtplib.SMTP_SSL(email_server, 465) as smtp:
             smtp.login(email_address, email_password)
