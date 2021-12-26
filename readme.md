@@ -18,3 +18,7 @@
 ## Screenshots
 * Email preview function that requires user confirmation before proceeding
   ![Email Preview Function](screenshots/email_preview.jpg?raw=true)
+* Script will ask user for explicit confirmation(by typing 'YES' into python console) before the email execution is carried out
+  ![Email Confirmation Function](screenshots/email_confirmation.png?raw=true)
+* Script will also output string message that email has been sent successfully upon completion.
+  ![Email Sent Function](screenshots/email_sent.jpg?raw=true)
