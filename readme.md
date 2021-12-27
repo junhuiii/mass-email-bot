@@ -32,3 +32,20 @@
 3. In the 'attachments' directory, place all pdf documents that you wish to attach in the email
 4. In the 'email_list' directory, create a .xlsx file named email_list.xlsx
 5. In the 'email_script' directory, create a .txt file named template.txt and place the html version of the email content inside.
+
+## Usage
+* In order to use the script, proceed to open up 'config.toml' in IDE.
+* Under the 'sender' dictionary, input your email details (address and password)
+* NOTE: DO NOT COMMIT/PUSH THIS TO GITHUB for privacy reasons.
+* Under the 'email_content' dictionary, put in your full name and the short name.
+
+## Project Status
+* This project is still being updated, and worked on, as of 27/12/2021.
+* Currently still working on adding more features.
+
+## Room for Improvement
+* Security: Storing email address and password in environment variables instead of in config.toml.
+* Time Complexity: Reduce operations by reducing the number of os.chdir calls within the for loop.
+
+## Contact
+* Do email me at aujunhui88@gmail.com if there are any queries or suggestions you have for me :)
