@@ -1,4 +1,4 @@
-# NUSSDS Mass E-Mail Bot
+# Mass E-Mail Bot
 
 ## Table of Contents
  <hr />
