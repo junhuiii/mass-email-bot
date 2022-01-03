@@ -36,7 +36,7 @@
 ## Usage
 * In order to use the script, proceed to open up 'config.toml' in IDE.
 * Under the 'sender' dictionary, input your email details (address and password)
-* NOTE: DO NOT COMMIT/PUSH THIS TO GITHUB for privacy reasons.
+* **NOTE: DO NOT COMMIT/PUSH THIS TO GITHUB** for privacy reasons.
 * Under the 'email_content' dictionary, put in your full name and the short name.
 
 ## Project Status
