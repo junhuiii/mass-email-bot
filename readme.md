@@ -14,6 +14,7 @@
 ## Description
 * Email Script that allows for users to place a pre-set html email template into "template.txt", followed by the string variables containing the emails and information of emails/organisations they wish to send to.
 * Script will read the respective files, craft a message meant for that particular organisation and email, together with any attachment.
+* I wrote this script because of my role in my university's Data Science Society, as part of the marketing team. I had to send out emails to multiple organisations, and I found the process tedious, so I tried to automate this process.
 
 ## Screenshots
 * Email preview function that requires user confirmation before proceeding
